@@ -1,1 +1,177 @@
 /* You can add global styles to this file, and also import other style files */
+@import './src/assets/variables.scss';
+@import './src/assets/mixins.scss';
+
+@font-face {
+  @import url('https://fonts.googleapis.com/css?family=Raleway:400,900');
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Raleway', sans-serif;
+  font-size: 18px;
+  overflow: hidden;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: 100%;
+  margin: 0 auto;
+  background-color: map-get($colors, background);
+  //background: url(https://www.graphicpear.com/wp-content/uploads/2017/05/aa.jpg);
+  background-position: 50% 50%;
+  background-size: cover;
+  padding: 6em 1em 1em 1em;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+.content {
+  flex: 1 0 auto;
+  max-width: 800px;
+  box-sizing: border-box;
+}
+
+.card {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 1em;
+  background-color: white;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 300ms ease-out;
+  border-radius: 0.2em;
+  padding: 1em;
+  display: flex;
+  justify-content: flex-start;
+
+  &:hover {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.4);
+  }
+
+  .badge {
+    font-size: 0.7em;
+    padding: 0 1em;
+    height: 3em;
+    border-radius: 2em;
+    min-width: 4em;
+    background-color: map-get($colors, light-grey);
+    color: map-get($colors, grey);
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1em;
+  }
+
+  .description {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+    justify-content: flex-start;
+    color: map-get($colors, grey);
+
+    h2, h3 {
+      margin: 0;
+    }
+    h2 {
+      font-size: 0.9em;
+    }
+    h3 {
+      font-size: 0.8em;
+      font-weight: normal;
+    }
+  }
+
+  &.play {
+    flex-direction: column;
+
+    .description {
+      align-content: center;
+      justify-content: center;
+      text-align: center;
+      margin: 1em 0;
+    }
+
+    .actions {
+      display: flex;
+      align-content: flex-start;
+      justify-content: flex-end;
+    }
+  }
+
+  &.question {
+    .description {
+      align-content: flex-start;
+      justify-content: flex-start;
+      text-align: left;
+    }
+  }
+}
+
+span.spacer {
+  flex: 1 0 auto;
+}
+
+button {
+  font-size: 0.75rem;
+  color: white;
+  border: none;
+  padding: 0 2em;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  @include transition(background-color 300ms ease-out);
+  border-radius: 1.5em;
+  height: 3em;
+  min-width: 5em;
+  font-weight: bolder;
+
+  &:hover {
+    background-color: grey;
+    color: white;
+    cursor: pointer;
+  }
+
+  &.play {
+    @include transition(background 300ms ease-out);
+    @include gradient(to right, $mainGradient);
+
+    &:hover {
+      @include gradient(to left, $mainGradient);
+    }
+  }
+
+  &.alt {
+    @include transition(background 300ms ease-out);
+    @include gradient(to right, $altGradient);
+
+    &:hover {
+      @include gradient(to left, $altGradient);
+    }
+  }
+}
+
+.floating {
+  position: fixed;
+  top: 1em;
+  right: 1em;
+  z-index: 99;
+
+  button {
+    border: 1px solid white;
+    color: white;
+    background: transparent;
+
+    &:hover {
+      background: white;
+      color: map-get($colors, grey);
+    }
+  }
+}

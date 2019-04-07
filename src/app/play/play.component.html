@@ -1,0 +1,36 @@
+<div *ngIf="quizz && !playing" class="card play">
+  <div class="actions">
+    <span class="badge">Tempo limite: {{utils.calcDeadline(quizz)}}s</span>
+    <span class="badge">Número de questões: {{quizz.questions.length}}</span>
+  </div>
+  <div class="description">
+    <h2>{{quizz.title}}</h2>
+    <h3>{{quizz.description}}</h3>
+  </div>
+  <div class="actions">
+    <button routerLink="">Voltar</button>
+    <span class="spacer"></span>
+    <button class="play" (click)="start()">Jogar!</button>
+  </div>
+</div>
+
+<div *ngIf="playing && quizz.questions[question]" class="card play question">
+  <div class="description">
+    <h2>{{quizz.questions[question].question}}</h2>
+    <ng-container appCountdown [deadline]="quizz.questions[question].deadline" (value)="value = $event">
+      <span class="badge">{{value}}</span>
+    </ng-container>
+  </div>
+  <div class="answers">
+    <ul>
+      <li *ngFor="let a of quizz.questions[question].answers">
+        {{a.text}}
+      </li>
+    </ul>
+  </div>
+  <div class="actions">
+    <button (click)="stop()">Parar</button>
+    <span class="spacer"></span>
+    <button class="alt" (click)="next()">Próxima</button>
+  </div>
+</div>

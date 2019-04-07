@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { Location } from '@angular/common';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'quiz';
+  items: Observable<any[]>;
+
+  constructor(db: AngularFirestore, private authService: AuthService, private location: Location) {
+    this.items = db.collection('quizzes').valueChanges();
+  }
 }

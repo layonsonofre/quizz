@@ -1,0 +1,13 @@
+$colors: (
+  blue: #00b0ed,
+  green: #20f298,
+  orange: #ff681b,
+  purple: #9b26ad,
+  yellow: #ffd91a,
+  background: #0e1c27,
+  grey: #8a8a8a,
+  light-grey: #eee
+);
+
+$mainGradient: map-get($colors, blue), map-get($colors, green);
+$altGradient: map-get($colors, orange), map-get($colors, purple);
