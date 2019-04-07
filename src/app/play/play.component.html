@@ -16,21 +16,61 @@
 
 <div *ngIf="playing && quizz.questions[question]" class="card play question">
   <div class="description">
-    <h2>{{quizz.questions[question].question}}</h2>
-    <ng-container appCountdown [deadline]="quizz.questions[question].deadline" (value)="value = $event">
-      <span class="badge">{{value}}</span>
-    </ng-container>
+    <div class="actions">
+      <h2>{{quizz.questions[question].question}}</h2>
+      <span class="spacer"></span>
+      <ng-container appCountdown [deadline]="quizz.questions[question].deadline" (value)="setDeadline($event)">
+        <span class="badge">{{deadline}}</span>
+      </ng-container>
+    </div>
   </div>
   <div class="answers">
     <ul>
-      <li *ngFor="let a of quizz.questions[question].answers">
-        {{a.text}}
+      <li *ngFor="let a of quizz.questions[question].answers" (click)="choose(a)">
+        <span class="radio" [ngClass]="{'selected': a.selected}"></span>
+        <span class="value">
+          {{a.text}}
+        </span>
       </li>
     </ul>
   </div>
   <div class="actions">
     <button (click)="stop()">Parar</button>
     <span class="spacer"></span>
-    <button class="alt" (click)="next()">Próxima</button>
+    <button class="alt" (click)="next()" [disabled]="deadline == 0">Próxima</button>
+  </div>
+</div>
+
+<div *ngIf="playing && finish" class="card play">
+  <div class="description">
+    <h2 class="result">
+      <span class="user" [ngClass]="{'good': corrects > question/2, 'bad': corrects <= question/2}">{{corrects}}</span>/{{question}}
+    </h2>
+  </div>
+  <div class="description">
+    <h4>Você levou {{time}} segundos para responder</h4>
+  </div>
+  <div class="table result">
+    <table>
+      <thead>
+        <tr>
+          <th>Pergunta</th>
+          <th>Resposta escolhida</th>
+          <th>Resposta correta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of results">
+          <td>{{r.question}}</td>
+          <td>{{r.user}}</td>
+          <td>{{r.correct}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="actions">
+    <button class="alt" (click)="start()">Jogar novamente</button>
+    <span class="spacer"></span>
+    <button class="play" routerLink="">Escolher outro Quizz</button>
   </div>
 </div>

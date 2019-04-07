@@ -97,6 +97,21 @@ html {
       justify-content: center;
       text-align: center;
       margin: 1em 0;
+
+      .result {
+        font-size: 3em;
+
+        .user {
+          font-size: 3.2em;
+
+          &.good {
+            color: map-get($colors, green);
+          }
+          &.bad {
+            color: map-get($colors, orange);
+          }
+        }
+      }
     }
 
     .actions {
@@ -112,6 +127,47 @@ html {
       justify-content: flex-start;
       text-align: left;
     }
+
+    .answers {
+      margin: 1em 0 2em 0;
+
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+          padding: 1em;
+          background-color: white;
+          @include transition(background-color 300ms ease-out);
+          display: flex;
+          align-items: flex-start;
+
+          &:hover {
+            background-color: map-get($colors, light-grey);
+            cursor: pointer;
+          }
+
+          .radio {
+            width: 1.2em;
+            min-width: 1.2em;
+            height: 1.2em;
+            min-height: 1.2em;
+            border-radius: 0.6em;
+            border: 1px solid map-get($colors, grey);
+            display: inline-block;
+            margin-right: 1em;
+            @include transition(background-color 300ms ease-out);
+            background-color: white;
+
+            &.selected {
+              background-color: map-get($colors, grey);
+              border-color: transparent;
+            }
+          }
+        }
+      }
+    }
   }
 }
 
@@ -121,7 +177,6 @@ span.spacer {
 
 button {
   font-size: 0.75rem;
-  color: white;
   border: none;
   padding: 0 2em;
   text-align: center;
@@ -133,6 +188,15 @@ button {
   min-width: 5em;
   font-weight: bolder;
 
+  &:not(.play):not(.alt) {
+    color: grey;
+  }
+
+  &:disabled {
+    background: map-get($colors, grey) !important;
+    color: darken(map-get($colors, grey), 50%) !important;
+  }
+
   &:hover {
     background-color: grey;
     color: white;
@@ -140,6 +204,7 @@ button {
   }
 
   &.play {
+    color: white;
     @include transition(background 300ms ease-out);
     @include gradient(to right, $mainGradient);
 
@@ -149,6 +214,7 @@ button {
   }
 
   &.alt {
+    color: white;
     @include transition(background 300ms ease-out);
     @include gradient(to right, $altGradient);
 
@@ -172,6 +238,52 @@ button {
     &:hover {
       background: white;
       color: map-get($colors, grey);
+    }
+  }
+}
+
+.table {
+  // width: 100%;
+  overflow-x: auto;
+
+  table {
+    width: 100%;
+    margin-top: 1em;
+    margin-bottom: 2em;
+    border-collapse: collapse;
+    //table-layout: fixed;
+
+    th, td {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    tbody>tr>*:nth-last-child(2)~* {
+      width: 50%
+    }
+
+    tbody>tr>*:nth-last-child(3)~* {
+      width: 33.3%
+    }
+
+    tbody>tr>*:nth-last-child(4)~* {
+      width: 25%
+    }
+  }
+
+  &.result {
+    color: map-get($colors, grey);
+
+    th {
+      font-size: 0.8em;
+    }
+
+    th, td {
+      padding: 0.5em 1em;
+    }
+
+    td {
+      font-size: 0.9em;
     }
   }
 }
