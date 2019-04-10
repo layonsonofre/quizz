@@ -16,13 +16,15 @@ import { DataService } from './data.service';
 import { AuthService } from './auth.service';
 import { UtilsService } from './utils.service';
 import { CountdownDirective } from './countdown.directive';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     QuizzSelectorComponent,
     PlayComponent,
-    CountdownDirective
+    CountdownDirective,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

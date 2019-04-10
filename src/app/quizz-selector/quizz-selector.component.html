@@ -1,6 +1,8 @@
+<h1 class="blue">Quizz</h1>
+<h2 class="white">Escolha o jogo e divirta-se!</h2>
 <div *ngFor="let quizz of quizzes | async" class="card">
-  <span class="badge">T: {{utils.calcDeadline(quizz)}}s</span>
-  <span class="badge">?: {{quizz.questions.length}}</span>
+  <span class="badge">Tempo (s): {{utils.calcDeadline(quizz)}}</span>
+  <span class="badge">Questões: {{quizz.questions.length}}</span>
   <div class="description">
     <h2>{{quizz.title}}</h2>
     <h3>{{quizz.description}}</h3>

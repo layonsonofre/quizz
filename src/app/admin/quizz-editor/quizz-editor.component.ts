@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from 'src/app/data.service';
+import { UtilsService } from 'src/app/utils.service';
 
 @Component({
   selector: 'app-quizz-editor',
@@ -14,8 +15,9 @@ export class QuizzEditorComponent implements OnInit {
   quizzSub: any;
   quizz: any;
   creating: boolean;
+  saving: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, private location: Location) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, private location: Location, private utils: UtilsService) { }
 
   ngOnInit() {
     this.creating = false;
@@ -42,7 +44,6 @@ export class QuizzEditorComponent implements OnInit {
     this.quizzSub = this.dataService.getDocument('quizzes/' + this.quizzId);
     this.quizzSub.subscribe(data => {
       this.quizz = data;
-      console.log(this.quizz);
     });
   }
 
@@ -70,6 +71,12 @@ export class QuizzEditorComponent implements OnInit {
     this.addBlankAnswer();
   }
 
+  removeQuestion(questionIndex: number) {
+    if (this.quizz.questions[questionIndex]) {
+      this.quizz.questions.splice(questionIndex, 1);
+    }
+  }
+
   addBlankAnswer(index: number = this.quizz.questions.length - 1) {
     if (!this.quizz.questions[index].answers || !this.quizz.questions[index].answers.length) {
       this.quizz.questions[index].answers = []
@@ -80,22 +87,39 @@ export class QuizzEditorComponent implements OnInit {
     });
   }
 
+  removeAnswer(questionIndex: number, answerIndex: number) {
+    if (this.quizz.questions[questionIndex] && this.quizz.questions[questionIndex].answers[answerIndex]) {
+      this.quizz.questions[questionIndex].answers.splice(answerIndex, 1);
+    }
+  }
+
   save() {
     if (this.formIsValid()) {
+      this.saving = true;
       if (this.creating) {
-
+        let temp = Object.assign({}, this.quizz);
+        this.dataService
+          .createDocument('quizzes/' + this.utils.generateRandomString(32), temp)
+          .then((res) => {
+            this.router.navigate(['/admin/quizzes']);
+            this.saving = false;
+            this.utils.addNotification({ description: 'Quizz inserido com sucesso' });
+          }, (err) => {
+            this.saving = false;
+            this.utils.addNotification({ description: 'Falha ao inserir o quizz' + err });
+          });
       } else {
         let temp = Object.assign({}, this.quizz);
         delete temp.id;
         this.dataService
           .updateDocument('quizzes/' + this.quizz.id, temp)
           .then((res) => {
-            console.log(res);
+            this.router.navigate(['/admin/quizzes']);
+            this.saving = false;
+            this.utils.addNotification({ description: 'Quizz atualizado com sucesso'});
           }, (err) => {
-            console.log('err: ' + err)
-          })
-          .catch((err) => {
-            console.log('catching: ' + err);
+            this.saving = false;
+            this.utils.addNotification({description: 'Falha ao atualizar o quizz' + err});
           });
       }
     }

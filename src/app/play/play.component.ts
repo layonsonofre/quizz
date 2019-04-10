@@ -64,7 +64,7 @@ export class PlayComponent implements OnInit, OnDestroy {
       const j = Math.floor(Math.random() * (i + 1));
       [this.quizz.questions[this.question].answers[i], this.quizz.questions[this.question].answers[j]] = [this.quizz.questions[this.question].answers[j], this.quizz.questions[this.question].answers[i]];
     }
-    this.choose(this.quizz.questions[this.question].answers[0]);
+    this.choose(this.quizz.questions[this.question].answers[0], true);
   }
 
   stop() {
@@ -82,9 +82,9 @@ export class PlayComponent implements OnInit, OnDestroy {
     this.time += this.deadline == 0 ? this.quizz.questions[deadlineIndex].deadline : (this.quizz.questions[deadlineIndex].deadline - this.deadline);
   }
 
-  choose(answer: any) {
-    if (typeof this.deadline == 'undefined' || this.deadline > 0) {
-      answer.selected = !answer.selected;
+  choose(answer: any, force = false) {
+    if (typeof this.deadline == 'undefined' || this.deadline > 0 || force) {
+      answer.selected = true;
       this.quizz.questions[this.question].answers.forEach(a => {
         if (a.text != answer.text) {
           a.selected = false;
@@ -115,7 +115,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     if (count == 0) {
       setTimeout(() => {
         this.next();
-      }, 3000);
+      }, 2000);
     }
   }
 }

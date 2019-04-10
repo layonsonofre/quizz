@@ -25,14 +25,13 @@ export class QuizzesListComponent implements OnInit {
         delete quizz.toDelete;
       }, 5000);
     } else {
-      console.log('actually deleting');
-      // this.dataService
-      //   .deleteDocument('quizzes/' + quizz.id)
-      //   .then(() => {
-      //     console.log('sucesso')
-      //   }, (err) => {
-      //     console.log('erro: ', err)
-      //   });
+      this.dataService
+      .deleteDocument('quizzes/' + quizz.id)
+      .then(() => {
+          this.utils.addNotification({description: 'Quizz excluído com sucesso'});
+        }, (err) => {
+          this.utils.addNotification({description: 'Falha ao excluir o quizz' + err});
+        });
     }
   }
 

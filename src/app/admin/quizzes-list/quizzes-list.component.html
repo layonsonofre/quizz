@@ -1,14 +1,15 @@
 <button class="play" routerLink="/admin/quizzes/create">Novo Quizz</button>
 
-<div *ngFor="let quizz of quizzes | async" class="card">
-  <span class="badge">T: {{utils.calcDeadline(quizz)}}s</span>
-  <span class="badge">?: {{quizz.questions.length}}</span>
+<div *ngFor="let quizz of quizzes | async" class="card play margin-top">
   <div class="description">
     <h2>{{quizz.title}}</h2>
     <h3>{{quizz.description}}</h3>
-    {{quizz | json}}
   </div>
-  <div class="description">
+  <div class="actions margin-top" *ngIf="quizz.questions">
+      <span class="badge">Tempo limite: {{utils.calcDeadline(quizz)}} segundos</span>
+      <span class="badge">Número de questões: {{quizz.questions.length}}</span>
+  </div>
+  <div class="actions margin-top">
     <button class="play" routerLink="{{ '/admin/quizzes/edit/' + quizz.id}}">Editar</button>
     <button class="alt" (click)="delete(quizz)">{{ quizz.toDelete ? 'Clique novamente para excluir' : 'Excluir' }}</button>
   </div>

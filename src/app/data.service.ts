@@ -78,7 +78,7 @@ export class DataService {
 
   createDocument(path: string, data: object):
     Promise<any | FirebaseError> {
-    return this.getDocumentRef(path).set(data)
+    return this.getCollectionRef(path).add(data)
       .then(() => {
         return null;
       })

@@ -1,0 +1,6 @@
+<div class="notifications-wrapper">
+  <div class="notification" *ngFor="let n of utils.notifications">
+    <span>{{n.description}}</span>
+    <button (click)="utils.dismiss(n.id)">X</button>
+  </div>
+</div>

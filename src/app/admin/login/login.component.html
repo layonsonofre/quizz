@@ -1,3 +1,18 @@
-<input type="text" placeholder="Email" [(ngModel)]="email" required autofocus>
-<input type="password" placeholder="Password" [(ngModel)]="password" required>
-<button (click)="doLogin()">Login</button>
+<form (ngSubmit)="doLogin()">
+  <div class="card form">
+    <h1 class="blue">Login</h1>
+    <div class="input">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="text" placeholder="Email" [(ngModel)]="email" required autofocus>
+    </div>
+    <div class="input">
+      <label for="password">Email</label>
+      <input id="password" name="password" type="password" placeholder="Password" [(ngModel)]="password" required>
+    </div>
+    <div class="row center margin-top">
+      <button type="button" routerLink="">Voltar</button>
+      <span class="spacer"></span>
+      <button type="submit" class="play">Login</button>
+    </div>
+  </div>
+</form>

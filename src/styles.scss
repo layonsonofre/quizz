@@ -28,10 +28,10 @@ html {
   //background: url(https://www.graphicpear.com/wp-content/uploads/2017/05/aa.jpg);
   background-position: 50% 50%;
   background-size: cover;
-  padding: 6em 1em 1em 1em;
+  //padding: 6em 1em 1em 1em;
   overflow-y: auto;
   max-height: 100vh;
-  padding: 3rem 6rem;
+  //padding: 3rem 6rem;
   box-sizing: border-box;
 }
 
@@ -39,6 +39,7 @@ html {
   flex: 1 0 auto;
   max-width: 800px;
   box-sizing: border-box;
+  padding: 3rem 6rem;
 }
 
 .card {
@@ -173,6 +174,8 @@ html {
   }
 
   &.form {
+    flex: 1 0 auto;
+    display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -181,9 +184,29 @@ html {
     .input {
       box-sizing: border-box;
       width: 100%;
-      label, input {
-        display: block;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin-bottom: 1em;
+
+      label, input:not([type=checkbox]), textarea {
+        box-sizing: border-box;
         width: 100%;
+      }
+      label {
+        font-weight: bold;
+        font-size: 0.75em;
+        color: map-get($colors, grey);
+      }
+      input:not([type=checkbox]),
+      textarea {
+        padding: 0.8em 1em;
+        margin-bottom: 1em;
+        border: 1px solid map-get($colors, grey);
+        font-family: 'Raleway', sans-serif;
+        border-radius: 0.2em;
+        font-size: 1em;
       }
     }
   }
@@ -302,6 +325,64 @@ button {
 
     td {
       font-size: 0.9em;
+    }
+  }
+}
+
+.white {
+  color: #fff;
+}
+
+.blue {
+  color: map-get($colors, blue);
+}
+
+.grey {
+  color: map-get($colors, grey);
+}
+
+.row {
+  flex: 1 0 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  &.center {
+    align-items: center;
+  }
+}
+
+.margin-top {
+  margin-top: 2em;
+}
+
+.notifications-wrapper {
+  position: absolute;
+  bottom: 1em;
+  left: 1em;
+  width: auto;
+  height: auto;
+
+  .notification {
+    display: block;
+    position: relative;
+    width: 300px;
+    min-width: 300px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 1em;
+    color: #fff;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    margin-top: 1em;
+
+    button {
+      background-color: rgba(0, 0, 0, 0.8);
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+      color: #fff;
+      position: absolute;
+      right: -0.5em;
+      top: -0.5em;
     }
   }
 }

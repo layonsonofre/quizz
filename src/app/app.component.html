@@ -3,6 +3,8 @@
     <router-outlet></router-outlet>
   </div>
 
+  <app-notifications></app-notifications>
+
   <div
     *ngIf="!authService.isLoggedIn && !location.path().startsWith('/admin/login') && !location.path().startsWith('/play')" class="floating">
     <button routerLink="admin/login">Login</button>
