@@ -5,12 +5,14 @@ import { LoginComponent } from './login/login.component';
 import { AdminComponent } from './admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { QuizzesListComponent } from './quizzes-list/quizzes-list.component';
+import { QuizzEditorComponent } from './quizz-editor/quizz-editor.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     AdminComponent,
-    QuizzesListComponent
+    QuizzesListComponent,
+    QuizzEditorComponent
   ],
   exports: [
     AdminComponent,

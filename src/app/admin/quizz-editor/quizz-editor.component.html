@@ -1,0 +1,42 @@
+<h1>{{creating ? 'Novo quizz' : 'Editar quizz'}}</h1>
+
+<div class="card form" *ngIf="quizz">
+  <div class="input">
+    <label>Títutlo</label>
+    <input type="text" placeholder="Título" [(ngModel)]="quizz.title" required>
+  </div>
+  <div class="input">
+    <label>Descrição</label>
+    <input type="text" placeholder="Descrição" [(ngModel)]="quizz.description" required>
+  </div>
+  Questões
+  <span *ngFor="let q of quizz.questions">
+    <div class="input">
+      <label>Pergunta</label>
+      <input type="text" placeholder="Pergunta" [(ngModel)]="q.question" required>
+    </div>
+    <div class="input">
+      <label>Ordem</label>
+      <input type="text" placeholder="Ordem" [(ngModel)]="q.order" required>
+    </div>
+    <div class="input">
+      <label>Tempo limite</label>
+      <input type="numeric" placeholder="Deadline" [(ngModel)]="q.deadline" required>
+    </div>
+    <hr>
+    <span *ngFor="let a of q.answers">
+        <div class="input">
+          <label>Resposta</label>
+          <input type="text" placeholder="Resposta" [(ngModel)]="a.text" required>
+        </div>
+        <div class="input">
+          <label>Correta?</label>
+          <input type="text" placeholder="Resposta" [(ngModel)]="a.correct">
+        </div>
+    </span>
+  </span>
+</div>
+
+
+<button (click)="goBack()">Voltar</button>
+<button (click)="save()" class="play">Salvar</button>

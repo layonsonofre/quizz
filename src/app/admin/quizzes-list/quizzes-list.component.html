@@ -1,5 +1,15 @@
-<ul>
-  <li class="text" *ngFor="let item of items | async">
-    {{item.title}}
-  </li>
-</ul>
+<button class="play" routerLink="/admin/quizzes/create">Novo Quizz</button>
+
+<div *ngFor="let quizz of quizzes | async" class="card">
+  <span class="badge">T: {{utils.calcDeadline(quizz)}}s</span>
+  <span class="badge">?: {{quizz.questions.length}}</span>
+  <div class="description">
+    <h2>{{quizz.title}}</h2>
+    <h3>{{quizz.description}}</h3>
+    {{quizz | json}}
+  </div>
+  <div class="description">
+    <button class="play" routerLink="{{ '/admin/quizzes/edit/' + quizz.id}}">Editar</button>
+    <button class="alt" (click)="delete(quizz)">{{ quizz.toDelete ? 'Clique novamente para excluir' : 'Excluir' }}</button>
+  </div>
+</div>

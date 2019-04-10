@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { UtilsService } from '../utils.service';
@@ -8,7 +8,7 @@ import { UtilsService } from '../utils.service';
   templateUrl: './play.component.html',
   styleUrls: ['./play.component.sass']
 })
-export class PlayComponent implements OnInit {
+export class PlayComponent implements OnInit, OnDestroy {
   sub: any;
   quizzId: string;
   quizzSub: any;

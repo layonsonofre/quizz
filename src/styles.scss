@@ -30,6 +30,8 @@ html {
   background-size: cover;
   padding: 6em 1em 1em 1em;
   overflow-y: auto;
+  max-height: 100vh;
+  padding: 3rem 6rem;
   box-sizing: border-box;
 }
 
@@ -166,6 +168,22 @@ html {
             }
           }
         }
+      }
+    }
+  }
+
+  &.form {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    box-sizing: border-box;
+
+    .input {
+      box-sizing: border-box;
+      width: 100%;
+      label, input {
+        display: block;
+        width: 100%;
       }
     }
   }
