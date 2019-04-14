@@ -73,7 +73,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let r of results">
-          <td>{{r.question}}</td>
+          <td [ngClass]="{'green': r.user == r.correct}">{{r.question}}</td>
           <td>{{r.user}}</td>
           <td>{{r.correct}}</td>
         </tr>

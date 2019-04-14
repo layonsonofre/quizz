@@ -66,8 +66,8 @@ export class QuizzEditorComponent implements OnInit {
     }
     this.quizz.questions.push({
       question: null,
-      order: this.quizz.questions.length,
-      deadline: 0,
+      order: this.quizz.questions.length + 1,
+      deadline: 30,
       image: null
     });
     this.addBlankAnswer();
