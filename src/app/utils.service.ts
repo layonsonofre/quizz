@@ -36,4 +36,19 @@ export class UtilsService {
   generateRandomString(length) {
     return Math.random().toString(36).substring(length);
   }
+
+  share(quizzId) {
+    let selBox = document.createElement('textarea');
+    selBox.style.position = 'fixed';
+    selBox.style.left = '0';
+    selBox.style.top = '0';
+    selBox.style.opacity = '0';
+    selBox.value = window.location.origin + '/play/' + quizzId;
+    document.body.appendChild(selBox);
+    selBox.focus();
+    selBox.select();
+    document.execCommand('copy');
+    document.body.removeChild(selBox);
+    this.addNotification({description: 'Link para o quizz copiado!'});
+  }
 }

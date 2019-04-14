@@ -104,7 +104,7 @@ export class PlayComponent implements OnInit, OnDestroy {
     } else {
       this.randomAnswers();
     }
-    this.time += this.deadline == 0 ? this.quizz.questions[deadlineIndex].deadline : (this.quizz.questions[deadlineIndex].deadline - this.deadline);
+    this.time += this.deadline == 0 ? +this.quizz.questions[deadlineIndex].deadline : +this.quizz.questions[deadlineIndex].deadline;
   }
 
   choose(answer: any) {

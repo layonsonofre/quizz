@@ -12,7 +12,7 @@
     <div class="row center margin-top">
       <button type="button" routerLink="">Voltar</button>
       <span class="spacer"></span>
-      <button type="submit" class="play">Login</button>
+      <button type="submit" [disabled]="!email || !password" class="play">Login</button>
     </div>
   </div>
 </form>

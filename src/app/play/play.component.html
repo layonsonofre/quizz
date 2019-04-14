@@ -1,7 +1,10 @@
 <div *ngIf="quizz && !playing" class="card play">
   <div class="actions">
-    <span class="badge">Tempo limite: {{utils.calcDeadline(quizz)}}s</span>
+    <span class="badge">Tempo limite (s): {{utils.calcDeadline(quizz)}}</span>
     <span class="badge">Número de questões: {{quizz.questions.length}}</span>
+  </div>
+  <div class="image" *ngIf="quizz.image">
+    <img [src]="quizz.image">
   </div>
   <div class="description">
     <h2>{{quizz.title}}</h2>
@@ -11,6 +14,7 @@
     <button routerLink="">Voltar</button>
     <span class="spacer"></span>
     <button class="play" (click)="start()">Jogar!</button>
+    <button class="alt" (click)="utils.share(quizz.id)">Compartilhar</button>
   </div>
 </div>
 
@@ -22,6 +26,9 @@
 </div>
 
 <div *ngIf="playing && quizz.questions[question]" class="card play question">
+  <div class="image" *ngIf="quizz.questions[question].image">
+    <img [src]="quizz.questions[question].image">
+  </div>
   <div class="description">
     <div class="actions">
       <h2>{{quizz.questions[question].order}}. {{quizz.questions[question].question}}</h2>

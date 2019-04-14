@@ -1,12 +1,20 @@
 <h1 class="blue">Quizz</h1>
 <h2 class="white">Escolha o jogo e divirta-se!</h2>
-<div *ngFor="let quizz of quizzes | async" class="card">
-  <span class="badge">Tempo (s): {{utils.calcDeadline(quizz)}}</span>
-  <span class="badge">Questões: {{quizz.questions.length}}</span>
+<div *ngFor="let quizz of quizzes | async" class="card play">
+  <div class="actions">
+    <span class="badge">Tempo (s): {{utils.calcDeadline(quizz)}}</span>
+    <span class="badge">Questões: {{quizz.questions.length}}</span>
+  </div>
+  <div class="image" *ngIf="quizz.image">
+    <img [src]="quizz.image">
+  </div>
   <div class="description">
     <h2>{{quizz.title}}</h2>
     <h3>{{quizz.description}}</h3>
   </div>
-  <span class="spacer"></span>
-  <button class="play" (click)="play(quizz)">Jogar!</button>
+  <div class="actions">
+    <button class="alt" (click)="utils.share(quizz.id)">Compartilhar</button>
+    <span class="spacer"></span>
+    <button class="play" (click)="play(quizz)">Jogar!</button>
+  </div>
 </div>

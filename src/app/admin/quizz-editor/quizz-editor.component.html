@@ -9,6 +9,10 @@
     <label for="quizzDescription">Descrição</label>
     <textarea type="text" id="quizzDescription" placeholder="Insira uma breve descrição para chamar a atenção do jogador" [(ngModel)]="quizz.description" required rows="2"></textarea>
   </div>
+  <div class="input">
+    <label for="quizzImage">Imagem</label>
+    <input type="text" id="quizzImage" placeholder="Imagem principal" [(ngModel)]="quizz.image">
+  </div>
   <ng-container *ngFor="let q of quizz.questions; let i = index">
     <hr>
     <div class="row center margin-top">
@@ -18,16 +22,20 @@
       <button (click)="removeQuestion(i)" class="alt">Remover</button>
     </div>
     <div class="input">
-      <label>Pergunta</label>
+      <label>Descrição da pergunta</label>
       <textarea type="text" placeholder="Insira a pergunta" [(ngModel)]="q.question" required rows="3"></textarea>
+    </div>
+    <div class="input">
+      <label for="questionImage">Imagem da pergunta</label>
+      <input type="text" id="questionImage" placeholder="Imagem da pergunta" [(ngModel)]="q.image">
     </div>
     <div class="row">
       <div class="input">
-        <label>Ordem</label>
+        <label>Ordem (ex.: 1, 2, 3...)</label>
         <input type="text" placeholder="Ordem da pergunta no Quizz" [(ngModel)]="q.order" required>
       </div>
       <div class="input">
-        <label>Tempo limite</label>
+        <label>Tempo limite (segundos)</label>
         <input inputmode="numeric" pattern="[0-9]*" type="text" placeholder="Tempo limite para responder" [(ngModel)]="q.deadline" required>
       </div>
     </div>
@@ -52,6 +60,8 @@
   </ng-container>
 </div>
 
-
-<button (click)="goBack()" [disabled]="saving">Voltar</button>
-<button (click)="save()" class="play" [disabled]="saving">{{saving ? 'Aguarde...' : 'Salvar'}}</button>
+<div class="row">
+  <button (click)="goBack()" [disabled]="saving">Voltar</button>
+  <span class="spacer"></span>
+  <button (click)="save()" class="play" [disabled]="saving">{{saving ? 'Aguarde...' : 'Salvar'}}</button>
+</div>

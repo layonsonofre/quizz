@@ -5,6 +5,9 @@
     <h2>{{quizz.title}}</h2>
     <h3>{{quizz.description}}</h3>
   </div>
+  <div class="image" *ngIf="quizz.image">
+    <img [src]="quizz.image">
+  </div>
   <div class="actions margin-top" *ngIf="quizz.questions">
       <span class="badge">Tempo limite: {{utils.calcDeadline(quizz)}} segundos</span>
       <span class="badge">Número de questões: {{quizz.questions.length}}</span>

@@ -54,7 +54,8 @@ export class QuizzEditorComponent implements OnInit {
   clearFields() {
     this.quizz = {
       title: null,
-      description: null
+      description: null,
+      image: null
     }
     this.addBlankQuestion();
   }
@@ -65,8 +66,9 @@ export class QuizzEditorComponent implements OnInit {
     }
     this.quizz.questions.push({
       question: null,
-      order: 1,
-      deadline: 0
+      order: this.quizz.questions.length,
+      deadline: 0,
+      image: null
     });
     this.addBlankAnswer();
   }
