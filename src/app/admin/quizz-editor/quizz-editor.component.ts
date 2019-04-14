@@ -17,7 +17,7 @@ export class QuizzEditorComponent implements OnInit {
   creating: boolean;
   saving: boolean;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, private location: Location, private utils: UtilsService) { }
+  constructor(public activatedRoute: ActivatedRoute, public router: Router, public dataService: DataService, public location: Location, public utils: UtilsService) { }
 
   ngOnInit() {
     this.creating = false;

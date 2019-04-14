@@ -11,7 +11,7 @@ import { UtilsService } from '../../utils.service';
 export class QuizzesListComponent implements OnInit {
   quizzes: Observable<any[]>;
 
-  constructor(private dataService: DataService, public utils: UtilsService) { }
+  constructor(public dataService: DataService, public utils: UtilsService) { }
 
   ngOnInit() {
     this.quizzes = this.dataService.getCollection('quizzes/');

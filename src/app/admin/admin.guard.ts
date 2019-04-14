@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   providedIn: 'root'
 })
 export class AdminGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(public authService: AuthService, public router: Router) { }
 
   canActivate(
     next: ActivatedRouteSnapshot,

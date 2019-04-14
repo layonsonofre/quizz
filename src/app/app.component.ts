@@ -12,7 +12,7 @@ import { AuthService } from './auth.service';
 export class AppComponent {
   items: Observable<any[]>;
 
-  constructor(db: AngularFirestore, private authService: AuthService, private location: Location) {
+  constructor(db: AngularFirestore, public authService: AuthService, public location: Location) {
     this.items = db.collection('quizzes').valueChanges();
   }
 }

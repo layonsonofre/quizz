@@ -12,7 +12,7 @@ import { map } from 'rxjs/operators';
 })
 export class DataService {
 
-  constructor(private db: AngularFirestore) { }
+  constructor(public db: AngularFirestore) { }
 
   getCollectionRef(path: string, sortBy?: string):
     AngularFirestoreCollection {

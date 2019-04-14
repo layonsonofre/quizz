@@ -27,7 +27,7 @@ export class PlayComponent implements OnInit, OnDestroy {
   counterSub: SubscriptionLike;
   interval: number = 1000;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, public utils: UtilsService) {
+  constructor(public activatedRoute: ActivatedRoute, public router: Router, public dataService: DataService, public utils: UtilsService) {
     this.counterSub = this.counter.pipe(
       switchMap((options: any) =>
         timer(0, options.interval).pipe(
