@@ -15,7 +15,6 @@ import { PlayComponent } from './play/play.component';
 import { DataService } from './data.service';
 import { AuthService } from './auth.service';
 import { UtilsService } from './utils.service';
-import { CountdownDirective } from './countdown.directive';
 import { NotificationsComponent } from './notifications/notifications.component';
 
 @NgModule({
@@ -23,7 +22,6 @@ import { NotificationsComponent } from './notifications/notifications.component'
     AppComponent,
     QuizzSelectorComponent,
     PlayComponent,
-    CountdownDirective,
     NotificationsComponent
   ],
   imports: [
@@ -36,8 +34,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
     AdminModule
   ],
   exports: [
-    QuizzSelectorComponent,
-    CountdownDirective
+    QuizzSelectorComponent
   ],
   providers: [
     DataService,

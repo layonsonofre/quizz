@@ -10,9 +10,11 @@
     <textarea type="text" id="quizzDescription" placeholder="Insira uma breve descrição para chamar a atenção do jogador" [(ngModel)]="quizz.description" required rows="2"></textarea>
   </div>
   <ng-container *ngFor="let q of quizz.questions; let i = index">
+    <hr>
     <div class="row center margin-top">
-      <h4 class="blue">Perguntas</h4>
+      <h4 class="blue">Pergunta</h4>
       <span class="spacer"></span>
+      <button (click)="addBlankQuestion()" class="play margin-top">Adicionar uma pergunta</button>
       <button (click)="removeQuestion(i)" class="alt">Remover</button>
     </div>
     <div class="input">
@@ -48,10 +50,6 @@
       </div>
     </ng-container>
   </ng-container>
-  <div class="row margin-top">
-    <span class="spacer"></span>
-    <button (click)="addBlankQuestion()" class="play margin-top">Adicionar uma pergunta</button>
-  </div>
 </div>
 
 

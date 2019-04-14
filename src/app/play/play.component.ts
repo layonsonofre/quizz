@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { UtilsService } from '../utils.service';
+import { Subject, SubscriptionLike, timer } from 'rxjs';
+import { switchMap, take, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-play',
@@ -20,8 +22,28 @@ export class PlayComponent implements OnInit, OnDestroy {
   deadline: number;
   time: number;
   results: any[];
+  refreshCounter: boolean;
+  counter = new Subject<any>();
+  counterSub: SubscriptionLike;
+  interval: number = 1000;
 
-  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, public utils: UtilsService) { }
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private dataService: DataService, public utils: UtilsService) {
+    this.counterSub = this.counter.pipe(
+      switchMap((options: any) =>
+        timer(0, options.interval).pipe(
+          take(options.count),
+          tap(() => {
+            this.deadline = --options.count;
+            if (this.deadline == 0) {
+              setTimeout(() => {
+                this.next();
+              }, 2000);
+            }
+          })
+        )
+      )
+    ).subscribe();
+  }
 
   ngOnInit() {
     this.sub = this.activatedRoute.params.subscribe(params => {
@@ -36,6 +58,7 @@ export class PlayComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sub.unsubscribe();
+    this.counterSub.unsubscribe();
   }
 
   getQuizz() {
@@ -64,7 +87,9 @@ export class PlayComponent implements OnInit, OnDestroy {
       const j = Math.floor(Math.random() * (i + 1));
       [this.quizz.questions[this.question].answers[i], this.quizz.questions[this.question].answers[j]] = [this.quizz.questions[this.question].answers[j], this.quizz.questions[this.question].answers[i]];
     }
-    this.choose(this.quizz.questions[this.question].answers[0], true);
+    this.deadline = this.quizz.questions[this.question].deadline;
+    this.counter.next({ count: this.quizz.questions[this.question].deadline, interval: this.interval });
+    this.choose(this.quizz.questions[this.question].answers[0]);
   }
 
   stop() {
@@ -82,8 +107,8 @@ export class PlayComponent implements OnInit, OnDestroy {
     this.time += this.deadline == 0 ? this.quizz.questions[deadlineIndex].deadline : (this.quizz.questions[deadlineIndex].deadline - this.deadline);
   }
 
-  choose(answer: any, force = false) {
-    if (typeof this.deadline == 'undefined' || this.deadline > 0 || force) {
+  choose(answer: any) {
+    if (typeof this.deadline == 'undefined' || this.deadline > 0) {
       answer.selected = true;
       this.quizz.questions[this.question].answers.forEach(a => {
         if (a.text != answer.text) {
@@ -94,7 +119,11 @@ export class PlayComponent implements OnInit, OnDestroy {
   }
 
   checkResult() {
-    this.corrects = this.quizz.questions.map(item => item.answers.filter(a => a.selected)[0]).filter(item => item.correct).length;
+    this.corrects = this.quizz.questions
+      .map(item => item.answers
+          .filter(a => a.selected)[0])
+      .filter(item => item && item.correct)
+      .length;
     this.results = [];
     for (let i = 0; i < this.quizz.questions.length; i++) {
       this.results.push({question: this.quizz.questions[i].question});
@@ -108,14 +137,5 @@ export class PlayComponent implements OnInit, OnDestroy {
       }
     }
     this.finish = true;
-  }
-
-  setDeadline(count: number) {
-    this.deadline = count;
-    if (count == 0) {
-      setTimeout(() => {
-        this.next();
-      }, 2000);
-    }
   }
 }

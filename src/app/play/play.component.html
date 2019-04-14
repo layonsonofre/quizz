@@ -26,9 +26,7 @@
     <div class="actions">
       <h2>{{quizz.questions[question].order}}. {{quizz.questions[question].question}}</h2>
       <span class="spacer"></span>
-      <ng-container appCountdown [deadline]="quizz.questions[question].deadline" (value)="setDeadline($event)">
-        <span class="badge">{{deadline}}</span>
-      </ng-container>
+      <span class="badge">{{deadline}}</span>
     </div>
   </div>
   <div class="answers">
